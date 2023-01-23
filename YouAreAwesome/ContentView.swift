@@ -21,7 +21,7 @@ struct ContentView: View {
             
             HStack {
                 Button("Awesome") {
-                    // this is the action!
+                    // this is the action
                     messageString = "You Are Awesome!"
                 }
                 .buttonStyle(.borderedProminent)
