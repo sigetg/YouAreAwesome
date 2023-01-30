@@ -9,14 +9,24 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var messageString =  ""
+    @State private var imageName = ""
+    @State private var imageNumber = 0
+    @State private var messageNumber = 0
+
     
     var body: some View {
         
         
         VStack {
             
+            Image(imageName)
+                .resizable()
+                .scaledToFit()
+                .cornerRadius(30)
+                .shadow(radius: 30)
+                .padding()
             Spacer()
- 
+            
             Text(messageString)
                 .font(.largeTitle)
                 .fontWeight(.heavy)
@@ -26,23 +36,31 @@ struct ContentView: View {
                 .frame(height: 150)
                 .frame(maxWidth: .infinity)
                 .padding()
-
             Spacer()
             
-            HStack {
-                Button("Awesome") {
-                    // this is the action
-                    messageString = "You Are Awesome!"
+            Button("Show Message") {
+                let messages = ["You are Awesome!",
+                                "You Are Skilled!",
+                                "You are Great",
+                                "Fabulous? That's you!",
+                                "You Are Fantastic!",
+                                "You Swifty!",
+                                "You Make Me Smile!",
+                                "I Think You're Magic!"]
+                // this is the action
+                messageString = messages[messageNumber]
+                messageNumber += 1
+                if messageNumber == messages.count {
+                    messageNumber = 0
                 }
-                .buttonStyle(.borderedProminent)
                 
-                Spacer()
-                
-                Button("Great") {
-                    messageString = "You Are Great!"
+                imageName = "image\(imageNumber)"
+                imageNumber += 1
+                if imageNumber > 9 {
+                    imageNumber = 0
                 }
-                .buttonStyle(.borderedProminent)
             }
+            .buttonStyle(.borderedProminent)
             .padding()
         }
     }
