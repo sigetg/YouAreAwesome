@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var imageName = ""
     @State private var imageNumber = 0
     @State private var messageNumber = 0
-
+    
     
     var body: some View {
         
@@ -48,23 +48,15 @@ struct ContentView: View {
                                 "You Make Me Smile!",
                                 "I Think You're Magic!"]
                 // this is the action
-                messageString = messages[messageNumber]
-                messageNumber += 1
-                if messageNumber == messages.count {
-                    messageNumber = 0
-                }
-                
-                imageName = "image\(imageNumber)"
-                imageNumber += 1
-                if imageNumber > 9 {
-                    imageNumber = 0
-                }
+                messageString = messages[Int.random(in: 0...messages.count-1)]
+                imageName = "image\(Int.random(in: 0...9))"
             }
-            .buttonStyle(.borderedProminent)
-            .padding()
         }
+        .buttonStyle(.borderedProminent)
+        .padding()
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
