@@ -39,9 +39,6 @@ struct ContentView: View {
             Spacer()
             
             Button("Show Message") {
-                var messageNumber: Int
-                var imageNumber: Int
-                var soundNumber: Int
                 
                 let messages = ["You are Awesome!",
                                 "You Are Skilled!",
