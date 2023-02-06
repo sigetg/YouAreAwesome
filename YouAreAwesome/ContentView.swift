@@ -49,7 +49,6 @@ struct ContentView: View {
                                 "You Make Me Smile!",
                                 "I Think You're Magic!"]
                 // this is the action
-
                 lastMessageNumber = nonRepeatingRandom(lastNumber: lastMessageNumber, upperBound: messages.count-1)
                 messageString = messages[lastMessageNumber]
                 
