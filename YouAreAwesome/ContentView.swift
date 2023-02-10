@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var lastImageNumber = -1
     @State private var lastSoundNumber = -1
     @State private var audioPlayer: AVAudioPlayer!
+    @State private var soundIsOn = true
     
     var body: some View {
         
@@ -29,6 +30,7 @@ struct ContentView: View {
                 .frame(height: 150)
                 .frame(maxWidth: .infinity)
                 .padding()
+                .animation(.easeInOut(duration: 0.15), value: messageString)
             
             Image(imageName)
                 .resizable()
@@ -36,28 +38,45 @@ struct ContentView: View {
                 .cornerRadius(30)
                 .shadow(radius: 30)
                 .padding()
+                .animation(.default, value: messageString)
             Spacer()
             
-            Button("Show Message") {
+            HStack {
                 
-                let messages = ["You are Awesome!",
-                                "You Are Skilled!",
-                                "You are Great",
-                                "Fabulous? That's you!",
-                                "You Are Fantastic!",
-                                "You Swifty!",
-                                "You Make Me Smile!",
-                                "I Think You're Magic!"]
-                // this is the action
-                lastMessageNumber = nonRepeatingRandom(lastNumber: lastMessageNumber, upperBound: messages.count-1)
-                messageString = messages[lastMessageNumber]
+                Text("Sound On: ")
+                Toggle("", isOn: $soundIsOn)
+                    .labelsHidden()
+                    .onChange(of: soundIsOn) { _ in
+                        if audioPlayer != nil && audioPlayer.isPlaying {
+                            audioPlayer.stop()
+                        }
+                    }
+                Spacer()
                 
-                lastImageNumber = nonRepeatingRandom(lastNumber: lastImageNumber, upperBound: 9)
-                imageName = "image\(lastImageNumber)"
-                
-                lastSoundNumber = nonRepeatingRandom(lastNumber: lastSoundNumber, upperBound: 5)
-                playSound(soundName: "sound\(lastSoundNumber)")
+                Button("Show Message") {
+                    
+                    let messages = ["You are Awesome!",
+                                    "You Are Skilled!",
+                                    "You are Great",
+                                    "Fabulous? That's you!",
+                                    "You Are Fantastic!",
+                                    "You Swifty!",
+                                    "You Make Me Smile!",
+                                    "I Think You're Magic!"]
+                    // this is the action
+                    lastMessageNumber = nonRepeatingRandom(lastNumber: lastMessageNumber, upperBound: messages.count-1)
+                    messageString = messages[lastMessageNumber]
+                    
+                    lastImageNumber = nonRepeatingRandom(lastNumber: lastImageNumber, upperBound: 9)
+                    imageName = "image\(lastImageNumber)"
+                    
+                    if soundIsOn {
+                        lastSoundNumber = nonRepeatingRandom(lastNumber: lastSoundNumber, upperBound: 5)
+                        playSound(soundName: "sound\(lastSoundNumber)")
+                    }
+                }
             }
+            .tint(.accentColor)
         }
         .buttonStyle(.borderedProminent)
         .padding()
